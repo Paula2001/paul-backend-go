@@ -6,5 +6,19 @@ import (
 )
 
 func SetRoutes(mux *http.ServeMux) {
-	CreateRoute(mux, "/test", "GET", controllers.GetTestimonies)
+	RouteStruct{
+		http.StatusOK,
+		"/testimone",
+		"GET",
+		mux,
+		controllers.GetTestimonies,
+	}.CreateRoute()
+
+	RouteStruct{
+		http.StatusOK,
+		"/testimone-create",
+		"POST",
+		mux,
+		controllers.GetTestimonies,
+	}.CreateRoute()
 }

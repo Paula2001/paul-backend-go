@@ -5,12 +5,9 @@ import (
 	"net/http"
 )
 
-func CreateRoute(
-	mux *http.ServeMux,
-	url string,
-	requestVar string,
-	logic func(w http.ResponseWriter, r *http.Request),
-) {
-	finalHandler := http.HandlerFunc(logic)
-	mux.Handle(url, middlewares.CheckHTTPVars(finalHandler, requestVar))
+func (routeMetaData RouteStruct) CreateRoute() {
+	response := http.HandlerFunc(routeMetaData.logic)
+	returnResponse := middlewares.SetDefaultHeaders(response, routeMetaData.status)
+	CheckHTTPVars := middlewares.CheckHTTPVars(returnResponse, routeMetaData.requestVar) // Todo : need a refactor it doesn't make sense
+	routeMetaData.mux.Handle(routeMetaData.url, CheckHTTPVars)
 }
