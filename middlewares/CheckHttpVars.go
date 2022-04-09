@@ -9,6 +9,7 @@ func CheckHTTPVars(next http.Handler, requestVar string) http.Handler {
 		if requestVar != r.Method {
 			w.Write([]byte("ERROR"))
 		} else {
+			w.Header().Set("Content-Type", "application/json")
 			next.ServeHTTP(w, r)
 		}
 	})
