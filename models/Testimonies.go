@@ -36,3 +36,7 @@ func GetAllTestimonies() []TestimoniesGet {
 	fmt.Println(testimonies[0].ClientName)
 	return testimonies
 }
+
+func DeleteAllTestimonies() {
+	database.DatabaseConnection.Query("delete from testimonies")
+}
