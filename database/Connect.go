@@ -15,7 +15,6 @@ func connect() *sql.DB {
 	var database string = os.Getenv("MYSQL_DATABASE_NAME")
 	var password string = os.Getenv("MYSQL_PASS")
 
-	println(os.Getenv("MYSQL_USER_NAME"), "------", "asd")
 	db, err := sql.Open("mysql", name+":"+password+"@tcp("+host+":"+port+")/"+database)
 
 	if err != nil {

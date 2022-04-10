@@ -19,7 +19,6 @@ func TestTestimoniesGet(t *testing.T) {
 	}.Create()
 	testimonies := GetAllTestimonies()
 	var testimoniesLen int = len(testimonies)
-	println(testimonies, "asd")
 	if testimoniesLen != 1 {
 		var ErrorMessage = "Number of Testimonies not right ,len = " + strconv.Itoa(testimoniesLen)
 		t.Error(ErrorMessage)
