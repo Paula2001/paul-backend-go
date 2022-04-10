@@ -7,6 +7,7 @@ import (
 )
 
 func TestMain(m *testing.M) {
+	//godotenv.Load(".env.testing") // Todo : needs to be more general on the start of all tests
 	DeleteAllTestimonies()
 	code := m.Run()
 	os.Exit(code)
@@ -22,6 +23,11 @@ func TestTestimoniesGet(t *testing.T) {
 
 	if testimoniesLen != 1 {
 		var ErrorMessage = "Number of Testimonies not right ,len = " + strconv.Itoa(testimoniesLen)
+		t.Error(ErrorMessage)
+	}
+
+	if testimonies[0].ClientName != "name one" {
+		var ErrorMessage = "There's an issue with data persistence"
 		t.Error(ErrorMessage)
 	}
 }

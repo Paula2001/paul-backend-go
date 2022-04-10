@@ -15,12 +15,12 @@ type TestimoniesCreate struct {
 }
 
 func (t TestimoniesCreate) Create() {
-	preparedStat, _ := database.DatabaseConnection.Prepare("insert into testimonies(name, testimony) values(?,?)")
+	preparedStat, _ := database.Connection.Prepare("insert into testimonies(name, testimony) values(?,?)")
 	preparedStat.Exec(t.ClientName, t.ClientTestimony)
 }
 
 func GetAllTestimonies() []TestimoniesGet {
-	results, err := database.DatabaseConnection.Query("select name, testimony from testimonies")
+	results, err := database.Connection.Query("select name, testimony from testimonies")
 	if err != nil {
 		panic(err.Error())
 	}
@@ -38,5 +38,5 @@ func GetAllTestimonies() []TestimoniesGet {
 }
 
 func DeleteAllTestimonies() {
-	database.DatabaseConnection.Query("delete from testimonies")
+	database.Connection.Query("delete from testimonies")
 }
