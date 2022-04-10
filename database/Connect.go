@@ -4,7 +4,6 @@ import (
 	"awesomeProject/Env"
 	"database/sql"
 	_ "github.com/go-sql-driver/mysql"
-	"log"
 	"os"
 )
 
@@ -16,10 +15,11 @@ func connect() *sql.DB {
 	var database string = os.Getenv("MYSQL_DATABASE_NAME")
 	var password string = os.Getenv("MYSQL_PASS")
 
-	println(os.Getenv("MYSQL_USER_NAME"))
+	println(os.Getenv("MYSQL_USER_NAME"), "------", "asd")
 	db, err := sql.Open("mysql", name+":"+password+"@tcp("+host+":"+port+")/"+database)
+
 	if err != nil {
-		log.Print(err.Error())
+		panic(err.Error())
 	}
 	return db
 }

@@ -7,6 +7,8 @@ services:
     command: 'go run main.go'
     volumes:
       - .:/app
+    depends_on:
+      - mysql-prod
     ports:
       - 3333:3333
 
@@ -15,23 +17,11 @@ services:
     restart: always
     image: mysql:latest
     environment:
-      MYSQL_ROOT_PASSWORD: 'test_pass' # TODO: Change this
-      MYSQL_USER: 'test'
-      MYSQL_PASS: 'pass'
+      MYSQL_ROOT_PASSWORD: 'test_pass'
     volumes:
       - go-datavolume:/var/lib/mysql
     ports:
       - 3306:3306
 
-  mysql-testing:
-    container_name: go_testing_mysql
-    restart: always
-    image: mysql:latest
-    environment:
-      MYSQL_ROOT_PASSWORD: 'test_pass' # TODO: Change this
-      MYSQL_USER: 'test'
-      MYSQL_PASS: 'pass'
-    ports:
-      - 3307:3306
 volumes:
   go-datavolume:
