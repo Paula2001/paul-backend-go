@@ -9,3 +9,6 @@ create_migrate:
 
 run_tests:
 	docker exec -i awesomeproject_main_1 go test ./...
+
+run_monkey_migration:
+	docker exec -i awesomeproject_main_1 go run cmd/migrateDataFromMonkeyApi.go
