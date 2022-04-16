@@ -14,3 +14,31 @@ func CreateMany(statQuestionMarks string, countryStruct []interface{}) {
 		return
 	}
 }
+
+func GetCountriesByCountryCode(countryCode string) []CountryStruct {
+	var query = "select * from countries where iso2 = ? OR iso3 = ?"
+	results, err := database.Connection.Query(query, countryCode, countryCode)
+	if err != nil {
+		panic(err.Error())
+	}
+	var countries []CountryStruct
+	countries = []CountryStruct{}
+	for results.Next() {
+		var country CountryStruct
+		err := results.Scan(
+			&country.Id,
+			&country.Iso2,
+			&country.Iso3,
+			&country.Numcode,
+			&country.Long_name,
+			&country.Short_name,
+			&country.Is_supported,
+		)
+		if err != nil {
+			println("this is error", err.Error())
+			return nil
+		}
+		countries = append(countries, country)
+	}
+	return countries
+}

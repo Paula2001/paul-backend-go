@@ -21,4 +21,12 @@ func SetRoutes(mux *http.ServeMux) {
 		mux,
 		controllers.CreateTestimonies,
 	}.CreateRoute()
+
+	RouteStruct{
+		http.StatusOK,
+		"/countries",
+		"GET",
+		mux,
+		controllers.GetCountryByCode,
+	}.CreateRoute()
 }

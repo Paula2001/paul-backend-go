@@ -23,4 +23,4 @@ func connect() *sql.DB {
 	return db
 }
 
-var Connection *sql.DB = connect() // Todo : this need to be singleton or should close after we finish
+var Connection = connect()

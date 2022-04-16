@@ -1,14 +1,13 @@
 package controllers
 
 import (
-	"awesomeProject/models"
+	"awesomeProject/models/Countries"
 	"encoding/json"
 	"net/http"
 )
 
 func GetCountryByCode(w http.ResponseWriter, r *http.Request) {
-	response := models.GetAllTestimonies()
-
+	var response = Countries.GetCountriesByCountryCode(r.FormValue("country_code"))
 	js, err := json.Marshal(response)
 	if err != nil {
 		http.Error(w, err.Error(), http.StatusInternalServerError)
