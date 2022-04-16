@@ -1,11 +1,16 @@
-migrate:
-	docker exec -i go_prod_mysql mysql -u root --password="test_pass" test < ./test.sql
+prepare_project:
+	cp .env.example .env
+	cp .env.testing.example .env.testing
+	docker-compose build
+	docker-compose up -d
+	ENV=production ./scripts/migrate
+	ENV=testing ./scripts/migrate
 
 migrate_prod:
-	./migrateProd
+	ENV=production ./scripts/migrate
 
 migrate_test:
-	./migrateTest
+	ENV=testing ./scripts/migrate
 
 run_tests:
 	docker exec -i awesomeproject_main_1 go test ./...

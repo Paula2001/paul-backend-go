@@ -1,0 +1,12 @@
+#!/bin/bash
+
+if [ "testing" == $ENV ]; then
+  source ./.env.testing
+else
+  source ./.env
+fi
+
+docker exec -it go_prod_mysql mysql -u $MYSQL_USER_NAME --password=$MYSQL_PASS -e "create database if not exists $MYSQL_DATABASE_NAME charset utf8"
+docker exec -i go_prod_mysql mysql -u $MYSQL_USER_NAME --password=$MYSQL_PASS $MYSQL_DATABASE_NAME < ./databases/$MYSQL_DATABASE_NAME.sql
+
+echo "DONE !"

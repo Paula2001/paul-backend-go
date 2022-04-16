@@ -1,14 +1,8 @@
-# GO-Trial
+# COUNTRIES-GO-TRAINING
 
 ### How to start the project :
 
-``docker-compose build``
-
-``docker-compose up -d``
-
-``make create_migrate``
-
-``Get all testimonies : http://localhost:3333/testimone``
+``make prepare_project``
 
 ###How to run tests :
 
