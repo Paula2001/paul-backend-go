@@ -16,6 +16,35 @@
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
 --
+-- Table structure for table `countries`
+--
+
+DROP TABLE IF EXISTS `countries`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `countries` (
+  `id` int NOT NULL AUTO_INCREMENT,
+  `iso2` varchar(2) DEFAULT NULL,
+  `iso3` varchar(3) DEFAULT NULL,
+  `numcode` int DEFAULT NULL,
+  `long_name` varchar(100) DEFAULT NULL,
+  `short_name` varchar(75) DEFAULT NULL,
+  `is_supported` tinyint(1) DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `numcode` (`numcode`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `countries`
+--
+
+LOCK TABLES `countries` WRITE;
+/*!40000 ALTER TABLE `countries` DISABLE KEYS */;
+/*!40000 ALTER TABLE `countries` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
 -- Table structure for table `testimonies`
 --
 
@@ -27,7 +56,7 @@ CREATE TABLE `testimonies` (
   `name` varchar(200) DEFAULT NULL,
   `testimony` text,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -36,7 +65,7 @@ CREATE TABLE `testimonies` (
 
 LOCK TABLES `testimonies` WRITE;
 /*!40000 ALTER TABLE `testimonies` DISABLE KEYS */;
-INSERT INTO `testimonies` VALUES (1,'george','test'),(2,'paul','test');
+INSERT INTO `testimonies` VALUES (10,'asd','Good'),(11,'asd','asddd');
 /*!40000 ALTER TABLE `testimonies` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -49,4 +78,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2022-04-10 15:43:23
+-- Dump completed on 2022-04-16 13:21:14

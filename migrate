@@ -1,4 +1,0 @@
-#!/bin/bash
-
-docker exec -it go_prod_mysql mysql -u root --password="test_pass" -e "create database test" && \
-docker exec -i go_prod_mysql mysql -u root --password="test_pass" test < ./test.sql
