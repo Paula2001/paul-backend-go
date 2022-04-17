@@ -93,3 +93,7 @@ func (countryStruct CountryStruct) Create() {
 		countryStruct.Is_supported,
 	)
 }
+
+func TruncateCountries() {
+	database.Connection.Query("truncate countries")
+}
