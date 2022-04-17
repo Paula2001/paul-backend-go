@@ -1,11 +1,15 @@
 package routers
 
-import "net/http"
+import (
+	"github.com/thedevsaddam/govalidator"
+	"net/http"
+)
 
 type RouteStruct struct {
-	status     int
-	url        string
-	requestVar string
-	mux        *http.ServeMux
-	logic      func(w http.ResponseWriter, r *http.Request)
+	status        int
+	url           string
+	requestVar    string
+	mux           *http.ServeMux
+	logic         func(w http.ResponseWriter, r *http.Request)
+	validateRules govalidator.MapData
 }
