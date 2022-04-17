@@ -2,6 +2,7 @@ package Countries
 
 import (
 	"awesomeProject/database"
+	"awesomeProject/models"
 	"log"
 )
 
@@ -15,15 +16,19 @@ func CreateMany(statQuestionMarks string, countryStruct []interface{}) {
 	}
 }
 
-func GetCountriesByCountryCode(countryCode string) CountryStruct {
+func GetCountriesByCountryCode(countryCode string) (*CountryStruct, *models.EmptyResultStruct) {
 	var query = "select * from countries where iso2 = ? OR iso3 = ? limit 1"
 	results, err := database.Connection.Query(query, countryCode, countryCode)
 	if err != nil {
 		panic(err.Error())
 	}
+
 	var country CountryStruct
+	var count = 0
+
 	for results.Next() {
-		_ := results.Scan(
+		count++
+		err := results.Scan(
 			&country.Id,
 			&country.Iso2,
 			&country.Iso3,
@@ -32,6 +37,13 @@ func GetCountriesByCountryCode(countryCode string) CountryStruct {
 			&country.Short_name,
 			&country.Is_supported,
 		)
+		if err != nil {
+			panic(err.Error())
+		}
 	}
-	return country
+	if count == 0 {
+		return nil, &models.EmptyResultStruct{Message: "No Country is not found with country code " + countryCode}
+	}
+
+	return &country, nil
 }
