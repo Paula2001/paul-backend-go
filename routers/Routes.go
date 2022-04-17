@@ -37,4 +37,14 @@ func SetRoutes(mux *http.ServeMux) {
 			"country_code": []string{"required", "between:2,3"},
 		},
 	}.CreateRoute()
+	RouteStruct{
+		http.StatusOK,
+		"/country-lookup",
+		"GET",
+		mux,
+		controllers.GetCountriesByQuery,
+		govalidator.MapData{
+			"query": []string{"required"},
+		},
+	}.CreateRoute()
 }

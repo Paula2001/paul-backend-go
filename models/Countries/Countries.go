@@ -47,3 +47,36 @@ func GetCountriesByCountryCode(countryCode string) (*CountryStruct, *models.Empt
 
 	return &country, nil
 }
+
+func GetCountriesByQuery(whereQuery string, intds []interface{}) (*[]CountryStruct, *models.EmptyResultStruct) {
+	var query = "select * from countries " + whereQuery
+	results, err := database.Connection.Query(query, intds...)
+	if err != nil {
+		panic(err.Error())
+	}
+
+	var count = 0
+	var countries []CountryStruct
+	for results.Next() {
+		var country CountryStruct
+		count++
+		err := results.Scan(
+			&country.Id,
+			&country.Iso2,
+			&country.Iso3,
+			&country.Numcode,
+			&country.Long_name,
+			&country.Short_name,
+			&country.Is_supported,
+		)
+		if err != nil {
+			panic(err.Error())
+		}
+		countries = append(countries, country)
+	}
+	if count == 0 {
+		return nil, &models.EmptyResultStruct{Message: "No Countries was found with this query"}
+	}
+
+	return &countries, nil
+}
