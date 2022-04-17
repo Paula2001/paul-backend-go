@@ -6,7 +6,7 @@ import (
 )
 
 func LoadEnv() {
-	if os.Getenv("ENVIRONMENT") == "testing" {
+	if os.Getenv("ENV") == "testing" {
 		godotenv.Load("../.env.testing")
 	} else {
 		godotenv.Load(".env")

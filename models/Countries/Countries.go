@@ -48,9 +48,9 @@ func GetCountriesByCountryCode(countryCode string) (*CountryStruct, *models.Empt
 	return &country, nil
 }
 
-func GetCountriesByQuery(whereQuery string, intds []interface{}) (*[]CountryStruct, *models.EmptyResultStruct) {
+func GetCountriesByQuery(whereQuery string, data []interface{}) (*[]CountryStruct, *models.EmptyResultStruct) {
 	var query = "select * from countries " + whereQuery
-	results, err := database.Connection.Query(query, intds...)
+	results, err := database.Connection.Query(query, data...)
 	if err != nil {
 		panic(err.Error())
 	}
@@ -79,4 +79,17 @@ func GetCountriesByQuery(whereQuery string, intds []interface{}) (*[]CountryStru
 	}
 
 	return &countries, nil
+}
+
+func (countryStruct CountryStruct) Create() {
+	var query = "insert into countries(long_name, short_name, numcode,iso2, iso3, is_supported) values(?,?,?,?,?,?)"
+	preparedStat, _ := database.Connection.Prepare(query)
+	preparedStat.Exec(
+		countryStruct.Long_name,
+		countryStruct.Short_name,
+		countryStruct.Numcode,
+		countryStruct.Iso2,
+		countryStruct.Iso3,
+		countryStruct.Is_supported,
+	)
 }
