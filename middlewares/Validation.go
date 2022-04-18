@@ -6,11 +6,11 @@ import (
 	"net/http"
 )
 
-func Validate(next http.Handler, rules govalidator.MapData) http.Handler {
-	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+func Validate(f http.HandlerFunc, rules govalidator.MapData) http.HandlerFunc {
+	return func(w http.ResponseWriter, r *http.Request) {
 		w.Header().Set("Content-Type", "application/json")
 		if rules == nil {
-			next.ServeHTTP(w, r)
+			f(w, r)
 			return
 		}
 		opts := govalidator.Options{
@@ -27,7 +27,7 @@ func Validate(next http.Handler, rules govalidator.MapData) http.Handler {
 			w.WriteHeader(http.StatusBadRequest)
 			_, _ = w.Write(x)
 		} else {
-			next.ServeHTTP(w, r)
+			f(w, r)
 		}
-	})
+	}
 }

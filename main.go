@@ -1,19 +1,24 @@
 package main
 
 import (
+	"awesomeProject/Env"
 	"awesomeProject/routers"
+	"github.com/husobee/vestigo"
 	"log"
 	"net/http"
+	"os"
 )
 
-func preStartLogs() {
-	log.Println("Listening on :3333...")
+func preStartLogs(port string) {
+	log.Println("Listening on :" + port)
 }
 
 func main() {
-	mux := http.NewServeMux()
-	preStartLogs()
-	routers.SetRoutes(mux)
-	err := http.ListenAndServe(":3333", mux)
+	Env.LoadEnv()
+	var port = os.Getenv("APP_PORT")
+	router := vestigo.NewRouter()
+	preStartLogs(port)
+	routers.SetRoutes(router)
+	err := http.ListenAndServe(":"+port, router)
 	log.Fatal(err)
 }
