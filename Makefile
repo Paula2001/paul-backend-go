@@ -6,6 +6,9 @@ prepare_project:
 start_project:
 	docker-compose up -d
 
+end_project:
+	docker-compose down
+
 migrate_prod:
 	ENV=production ./scripts/migrate
 
