@@ -4,6 +4,7 @@ import (
 	"awesomeProject/models/Countries"
 	"bytes"
 	"encoding/json"
+	"github.com/husobee/vestigo"
 	"net/http"
 	"net/http/httptest"
 	"os"
@@ -97,6 +98,20 @@ func TestGetCountriesByCode(t *testing.T) {
 
 		got := response.Body.String()
 		want := "[{\"Id\":2,\"Iso2\":\"US\",\"Short_name\":\"United States\",\"Long_name\":\"United States Of America\",\"Iso3\":\"USA\",\"Numcode\":204,\"Is_supported\":true}]"
+		if got != want {
+			t.Errorf("got %q, want %q", got, want)
+		}
+	})
+
+	t.Run("should update CZ by calling /country/1 to supported = false", func(t *testing.T) {
+		var id = "1"
+		request, _ := http.NewRequest(http.MethodPatch, "/country/"+id+"?is_supported=false", nil)
+		response := httptest.NewRecorder()
+		vestigo.AddParam(request, "id", id)
+		UpdateCountry(response, request)
+
+		got := response.Body.String()
+		want := "{\"Message\":\"Country is updated\"}"
 		if got != want {
 			t.Errorf("got %q, want %q", got, want)
 		}
