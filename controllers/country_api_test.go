@@ -107,16 +107,15 @@ func TestGetCountriesByCode(t *testing.T) {
 	t.Run("should update CZ by calling /country/1 to supported = false", func(t *testing.T) {
 		var id = "1"
 		var isSupported = "false"
-		var result = Countries.GetCountryById(id)
 		request, _ := http.NewRequest(http.MethodPatch, "/country/"+id+"?is_supported="+isSupported, nil)
 		response := httptest.NewRecorder()
 		vestigo.AddParam(request, "id", id)
 		UpdateCountry(response, request)
-
+		var result = Countries.GetCountryById(id)
 		var expectedIsSupported, _ = strconv.ParseBool(isSupported)
 		var actualIsSupported = result.Is_supported
 
-		if expectedIsSupported {
+		if expectedIsSupported != actualIsSupported {
 			t.Errorf("got %t, want %t", expectedIsSupported, actualIsSupported)
 		}
 
