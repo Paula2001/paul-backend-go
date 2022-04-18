@@ -1,13 +1,25 @@
 # COUNTRIES-GO-TRAINING
 
-## How to start the project :
+## Build the project :
 
 ``make prepare_project``
 
-### migrate files from monkey public API to our database
+## Start the project :
+
+``make start_project``
+
+## Stop the project :
+
+``make end_project``
+
+## Migrate files from monkey public API to our database :
 
 ``make run_monkey_migration``
 
-###How to run tests :
+## Migrate Production Database :
+
+``make migrate_test``
+
+## Migrate Testing Database :
 
 ``make run_tests``

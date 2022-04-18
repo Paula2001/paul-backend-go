@@ -8,7 +8,7 @@ import (
 )
 
 func connect() *sql.DB {
-	Env.LoadEnv() // Todo : need to create bootstrap for the project
+	Env.LoadEnv()
 	var name string = os.Getenv("MYSQL_USER_NAME")
 	var host string = os.Getenv("MYSQL_HOST")
 	var port string = os.Getenv("MYSQL_PORT")
