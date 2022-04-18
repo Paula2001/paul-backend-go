@@ -82,9 +82,10 @@ func GetCountriesByQuery(whereQuery string, data []interface{}) (*[]CountryStruc
 }
 
 func (countryStruct CountryStruct) Create() {
-	var query = "insert into countries(long_name, short_name, numcode,iso2, iso3, is_supported) values(?,?,?,?,?,?)"
+	var query = "insert into countries(id,long_name, short_name, numcode,iso2, iso3, is_supported) values(?,?,?,?,?,?,?)"
 	preparedStat, _ := database.Connection.Prepare(query)
 	preparedStat.Exec(
+		countryStruct.Id,
 		countryStruct.Long_name,
 		countryStruct.Short_name,
 		countryStruct.Numcode,

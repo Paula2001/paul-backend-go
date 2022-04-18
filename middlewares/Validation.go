@@ -9,6 +9,10 @@ import (
 func Validate(next http.Handler, rules govalidator.MapData) http.Handler {
 	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 		w.Header().Set("Content-Type", "application/json")
+		if rules == nil {
+			next.ServeHTTP(w, r)
+			return
+		}
 		opts := govalidator.Options{
 			Request:         r,
 			Rules:           rules,

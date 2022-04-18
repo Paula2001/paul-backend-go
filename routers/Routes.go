@@ -43,8 +43,6 @@ func SetRoutes(mux *http.ServeMux) {
 		"GET",
 		mux,
 		controllers.GetCountriesByQuery,
-		govalidator.MapData{
-			"query": []string{"required"},
-		},
+		nil,
 	}.CreateRoute()
 }
