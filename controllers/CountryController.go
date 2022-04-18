@@ -1,10 +1,13 @@
 package controllers
 
 import (
+	"awesomeProject/controllers/Responses"
 	"awesomeProject/models/Countries"
 	"encoding/json"
+	"github.com/husobee/vestigo"
 	"io/ioutil"
 	"net/http"
+	"strconv"
 )
 
 type QueryObject struct {
@@ -96,5 +99,22 @@ func GetCountriesByQuery(w http.ResponseWriter, r *http.Request) {
 		w.WriteHeader(http.StatusNotFound)
 		js, _ = json.Marshal(emptyResponse)
 	}
+	_, _ = w.Write(js) // Todo : create mapper for the response
+}
+
+func UpdateCountry(w http.ResponseWriter, r *http.Request) {
+	id := vestigo.Param(r, "id") // url params live in the request
+	var isSupported, _ = strconv.ParseBool(r.FormValue("is_supported"))
+	var affectedResults = Countries.UpdateCountryIsSupported(id, isSupported)
+	var message = "Country is not updated"
+
+	if affectedResults == 1 {
+		message = "Country is updated"
+	}
+
+	var js, _ = json.Marshal(Responses.UpdatedResponse{
+		Message: message,
+	})
+
 	_, _ = w.Write(js) // Todo : create mapper for the response
 }

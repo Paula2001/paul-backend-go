@@ -31,7 +31,7 @@ func SetRoutes(vestigo *vestigo.Router) {
 		http.StatusOK,
 		"/country/:id",
 		vestigo.Patch,
-		controllers.GetCountriesByQuery,
+		controllers.UpdateCountry,
 		nil,
 	}.CreateRoute()
 }

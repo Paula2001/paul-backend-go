@@ -98,3 +98,14 @@ func (countryStruct CountryStruct) Create() {
 func TruncateCountries() {
 	database.Connection.Query("truncate countries")
 }
+
+func UpdateCountryIsSupported(id string, isSupported bool) int64 {
+	var query = "update countries set is_supported = ? where id = ?"
+	preparedStat, _ := database.Connection.Prepare(query)
+	exec, err := preparedStat.Exec(isSupported, id)
+	if err != nil {
+		log.Fatal(err)
+	}
+	affected, _ := exec.RowsAffected()
+	return affected
+}
