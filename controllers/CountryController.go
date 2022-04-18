@@ -32,7 +32,7 @@ func GetCountryByCode(w http.ResponseWriter, r *http.Request) {
 		w.WriteHeader(http.StatusNotFound)
 		js, _ = json.Marshal(emptyResponse)
 	}
-	_, _ = w.Write(js) // Todo : create mapper for the response
+	_, _ = w.Write(js)
 }
 
 func GetCountriesByQuery(w http.ResponseWriter, r *http.Request) {
@@ -103,7 +103,7 @@ func GetCountriesByQuery(w http.ResponseWriter, r *http.Request) {
 }
 
 func UpdateCountry(w http.ResponseWriter, r *http.Request) {
-	id := vestigo.Param(r, "id") // url params live in the request
+	id := vestigo.Param(r, "id")
 	var isSupported, _ = strconv.ParseBool(r.FormValue("is_supported"))
 	var affectedResults = Countries.UpdateCountryIsSupported(id, isSupported)
 	var message = "Country is not updated"
@@ -116,5 +116,5 @@ func UpdateCountry(w http.ResponseWriter, r *http.Request) {
 		Message: message,
 	})
 
-	_, _ = w.Write(js) // Todo : create mapper for the response
+	_, _ = w.Write(js)
 }

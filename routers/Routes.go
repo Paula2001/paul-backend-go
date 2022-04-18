@@ -32,6 +32,8 @@ func SetRoutes(vestigo *vestigo.Router) {
 		"/country/:id",
 		vestigo.Patch,
 		controllers.UpdateCountry,
-		nil,
+		govalidator.MapData{
+			"is_supported": []string{"required", "bool"},
+		},
 	}.CreateRoute()
 }
