@@ -109,3 +109,26 @@ func UpdateCountryIsSupported(id string, isSupported bool) int64 {
 	affected, _ := exec.RowsAffected()
 	return affected
 }
+
+func GetCountryById(id string) CountryStruct {
+	var query = "select * from countries where id = ?"
+	results, _ := database.Connection.Query(query, id)
+
+	var country CountryStruct
+
+	for results.Next() {
+		err := results.Scan(
+			&country.Id,
+			&country.Iso2,
+			&country.Iso3,
+			&country.Numcode,
+			&country.Long_name,
+			&country.Short_name,
+			&country.Is_supported,
+		)
+		if err != nil {
+			panic(err.Error())
+		}
+	}
+	return country
+}

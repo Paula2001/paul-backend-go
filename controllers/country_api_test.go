@@ -8,6 +8,7 @@ import (
 	"net/http"
 	"net/http/httptest"
 	"os"
+	"strconv"
 	"testing"
 )
 
@@ -105,10 +106,19 @@ func TestGetCountriesByCode(t *testing.T) {
 
 	t.Run("should update CZ by calling /country/1 to supported = false", func(t *testing.T) {
 		var id = "1"
-		request, _ := http.NewRequest(http.MethodPatch, "/country/"+id+"?is_supported=false", nil)
+		var isSupported = "false"
+		var result = Countries.GetCountryById(id)
+		request, _ := http.NewRequest(http.MethodPatch, "/country/"+id+"?is_supported="+isSupported, nil)
 		response := httptest.NewRecorder()
 		vestigo.AddParam(request, "id", id)
 		UpdateCountry(response, request)
+
+		var expectedIsSupported, _ = strconv.ParseBool(isSupported)
+		var actualIsSupported = result.Is_supported
+
+		if expectedIsSupported {
+			t.Errorf("got %t, want %t", expectedIsSupported, actualIsSupported)
+		}
 
 		got := response.Body.String()
 		want := "{\"Message\":\"Country is updated\"}"
