@@ -1,0 +1,13 @@
+#!/bin/bash
+
+if [ "testing" == $ENV ]; then
+  source ./.env.testing
+else
+  source ./.env
+fi
+
+while ! docker exec go_prod_mysql mysql --user=$MYSQL_USER_NAME --password=$MYSQL_PASS -e "SELECT 1" >/dev/null 2>&1; do
+    sleep 1
+done
+
+echo "Connection is ready !"

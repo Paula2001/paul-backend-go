@@ -5,6 +5,7 @@ prepare_project:
 
 start_project:
 	docker-compose up -d
+	ENV=production ./scripts/checkMysqlConnection
 
 end_project:
 	docker-compose down
